@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Turn to Teach — Stage I prototype</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1>My Turn to Teach</h1>
+    <p>Stage I laptop prototype · hand tracking runs locally in this browser</p>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="setup" role="tab">1 · Record the demo</button>
+    <button class="tab" data-tab="session" role="tab">2 · Session</button>
+    <button class="tab" data-tab="eval" role="tab">3 · Accuracy check</button>
+    <button class="tab" data-tab="results" role="tab">4 · Results</button>
+  </nav>
+</header>
+
+<main class="layout">
+  <section class="stage">
+    <div class="video-wrap">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div id="badge" class="badge">Camera off</div>
+      <div id="bubble" class="bubble hidden"></div>
+      <div id="countdown" class="countdown hidden"></div>
+    </div>
+    <div class="statusbar">
+      <span id="stat-hands">Hands: –</span>
+      <span id="stat-fps">FPS: –</span>
+      <span id="stat-match">Match: –</span>
+      <span class="privacy">Camera on · nothing is recorded or uploaded</span>
+    </div>
+    <div class="controls">
+      <button id="btn-camera" class="primary">Start camera</button>
+      <label><input type="checkbox" id="opt-mirror" checked> Mirror view</label>
+      <label>Camera
+        <select id="opt-view">
+          <option value="front">in front of me</option>
+          <option value="overhead">above the table</option>
+        </select>
+      </label>
+      <label>Strictness <input type="range" id="opt-strict" min="0" max="100" value="50"></label>
+      <label><input type="checkbox" id="opt-voice" checked> Voice</label>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <!-- 1 · setup -->
+    <div class="pane" id="pane-setup">
+      <h2>Record the instructor's demo</h2>
+      <p class="help">Hold the hand position for one step, press <b>Record step</b>, and keep still for the countdown. Repeat for each step. This is the only "training" the system needs.</p>
+      <div class="row">
+        <input id="craft-name" type="text" placeholder="Craft name, e.g. Simple knot">
+      </div>
+      <div class="row">
+        <input id="step-name" type="text" placeholder="Step name, e.g. Cross the right cord over">
+        <button id="btn-record" class="primary">Record step</button>
+      </div>
+      <ol id="step-list" class="steps"></ol>
+      <div class="row wrap">
+        <button id="btn-export">Export craft file</button>
+        <label class="filebtn">Import craft file<input id="file-import" type="file" accept="application/json"></label>
+        <button id="btn-clear" class="danger">Clear steps</button>
+      </div>
+    </div>
+
+    <!-- 2 · session -->
+    <div class="pane hidden" id="pane-session">
+      <h2>Session</h2>
+      <div class="row">
+        <input id="elder-name" type="text" placeholder="Learner's name">
+        <button id="btn-start" class="primary">Start session</button>
+        <button id="btn-stop">Stop</button>
+      </div>
+      <div id="session-step" class="stepcard">
+        <p class="eyebrow" id="session-progress">No session running</p>
+        <h3 id="session-title">Record at least one step first.</h3>
+        <div class="refrow">
+          <img id="ref-photo" alt="Reference photo for this step">
+          <canvas id="ref-canvas" width="240" height="180"></canvas>
+        </div>
+      </div>
+      <div id="tipcard" class="tipcard hidden">
+        <p class="eyebrow">Your tip from last time</p>
+        <p id="tip-text"></p>
+      </div>
+      <div id="teach" class="teach hidden">
+        <p class="eyebrow">Your turn to teach</p>
+        <p id="teach-prompt"></p>
+        <textarea id="teach-input" rows="2" placeholder="Speak, or type the tip here"></textarea>
+        <p id="teach-status" class="help"></p>
+        <div class="row wrap">
+          <button id="btn-tip-listen">Listen again</button>
+          <button id="btn-tip-keep" class="primary">Yes, keep it</button>
+          <button id="btn-tip-skip">Skip</button>
+        </div>
+      </div>
+      <div id="story" class="story hidden">
+        <p class="eyebrow">Story card</p>
+        <div class="storybody">
+          <img id="story-photo" alt="Photo of the finished piece">
+          <div>
+            <h3 id="story-title"></h3>
+            <p id="story-meta" class="help"></p>
+            <ul id="story-tips"></ul>
+            <audio id="story-audio" controls class="hidden"></audio>
+          </div>
+        </div>
+        <button id="btn-photo">Take a photo of the finished piece</button>
+      </div>
+    </div>
+
+    <!-- 3 · evaluation -->
+    <div class="pane hidden" id="pane-eval">
+      <h2>Accuracy check</h2>
+      <p class="help">The app asks you to do a step correctly, or wrongly on purpose. It then compares its own judgement with what it asked for. Twenty trials take about two minutes.</p>
+      <div class="row">
+        <label>Trials <input id="eval-n" type="number" min="4" max="60" value="20"></label>
+        <button id="btn-eval" class="primary">Start check</button>
+        <button id="btn-eval-stop">Stop</button>
+      </div>
+      <div class="stepcard">
+        <p class="eyebrow" id="eval-progress">Not running</p>
+        <h3 id="eval-instruction">Record steps, then start the check.</h3>
+      </div>
+      <ol id="eval-log" class="log"></ol>
+    </div>
+
+    <!-- 4 · results -->
+    <div class="pane hidden" id="pane-results">
+      <h2>Results for the proposal</h2>
+      <div class="metrics">
+        <div class="metric"><p class="num" id="m-track">–</p><p>Frames with both hands tracked</p></div>
+        <div class="metric"><p class="num" id="m-acc">–</p><p>Steps judged correctly</p></div>
+        <div class="metric"><p class="num" id="m-lat">–</p><p>Hint delay, wrong move to first word</p></div>
+      </div>
+      <p class="help" id="m-detail"></p>
+      <div class="row wrap">
+        <button id="btn-download" class="primary">Download results.json</button>
+        <button id="btn-reset-results" class="danger">Reset results</button>
+        <button id="btn-forget-tips" class="danger">Forget saved tips</button>
+      </div>
+      <h3>Saved tips</h3>
+      <ul id="tips-list" class="log"></ul>
+    </div>
+  </aside>
+</main>
+
+<footer class="foot">
+  <p>Simulation of the on-device pipeline. Hand landmarks use MediaPipe Hands (the model family behind Hailo's <code>hand_landmark_lite</code>) and run locally. Speech recognition uses the browser's service and needs a connection; on the ASUS UGen300 this is replaced by Whisper running on the accelerator.</p>
+</footer>
+
+<script src="vendor/mediapipe-hands/hands.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

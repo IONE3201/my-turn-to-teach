@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; width:1280px; height:800px; overflow:hidden; font-family: "DejaVu Sans", Arial, sans-serif; color:#FBF7F0; background:#1F3A5F; }
+  .card { width:1280px; height:800px; position:relative; display:none; }
+  .card.show { display:block; }
+  .serif { font-family: "DejaVu Serif", Georgia, serif; }
+  #title img { position:absolute; inset:0; width:1280px; height:800px; object-fit:cover; }
+  #title .scrim { position:absolute; left:0; right:0; bottom:0; padding:28px 48px; background:linear-gradient(transparent, rgba(31,58,95,.92) 40%); }
+  #title h1 { margin:0; font-size:52px; }
+  #title p { margin:8px 0 0; font-size:22px; color:#DCE6F0; }
+  #title .tag { position:absolute; right:20px; top:20px; font-size:15px; background:rgba(42,38,34,.75); padding:6px 12px; border-radius:8px; }
+  .pad { padding:64px 80px; }
+  .eyebrow { font-size:16px; letter-spacing:2px; text-transform:uppercase; color:#F2B880; font-weight:bold; margin:0 0 18px; }
+  h2 { margin:0 0 36px; font-size:44px; line-height:1.15; }
+  .stats { display:flex; gap:28px; }
+  .stat { flex:1; background:rgba(255,253,249,.08); border:1px solid rgba(255,253,249,.18); border-radius:16px; padding:28px; }
+  .stat .n { font-size:72px; color:#F2B880; line-height:1; margin:0 0 14px; }
+  .stat p { margin:0; font-size:20px; line-height:1.4; color:#DCE6F0; }
+  .foot { position:absolute; left:80px; right:80px; bottom:40px; font-size:15px; color:#B9C7D6; }
+  .q { font-size:40px; line-height:1.3; margin-top:44px; color:#FBF7F0; }
+  .q b { color:#F2B880; }
+  .flow { display:flex; align-items:center; gap:18px; margin:30px 0 40px; }
+  .box { background:rgba(255,253,249,.08); border:1px solid rgba(255,253,249,.18); border-radius:14px; padding:18px 22px; font-size:20px; line-height:1.35; }
+  .box.hi { background:#F2B880; color:#2A2622; }
+  .arrow { font-size:34px; color:#F2B880; }
+  .big { font-size:40px; line-height:1.2; margin-top:52px; }
+</style></head>
+<body>
+<div class="card" id="title">
+  <img src="../video/build/concept.png" alt="">
+  <div class="tag">Concept visualisation, AI-generated</div>
+  <div class="scrim">
+    <h1 class="serif">My Turn to Teach</h1>
+    <p>ASUS UGen AI League · Battlefield Lightning · Everyday AI</p>
+  </div>
+</div>
+
+<div class="card pad" id="problem">
+  <p class="eyebrow">The problem</p>
+  <h2 class="serif">Taiwan is super-aged and short of care hands</h2>
+  <div class="stats">
+    <div class="stat"><p class="n serif">20.06%</p><p>of the population is 65 or older, end of 2025</p></div>
+    <div class="stat"><p class="n serif">87.5%</p><p>of long-term care institutions are chronically understaffed</p></div>
+    <div class="stat"><p class="n serif">66%</p><p>of people with dementia show emotional or behavioural symptoms</p></div>
+  </div>
+  <p class="q serif">What if elders could <b>teach</b>, not only receive?</p>
+  <p class="foot">Sources: Ministry of the Interior (Jan 2026); 1111 Job Bank via UDN (Jun 2026); MOHW estimates via Health News (Oct 2026)</p>
+</div>
+
+<div class="card pad" id="outro">
+  <p class="eyebrow">Stage II · on the ASUS UGen300</p>
+  <h2 class="serif">Every model moves onto the accelerator</h2>
+  <div class="flow">
+    <div class="box">Webcam +<br>microphone</div><div class="arrow">→</div>
+    <div class="box hi"><b>UGen300 · Hailo-10H</b><br>pose + hand landmarks · Whisper · small LLM<br>2.5 W · offline</div><div class="arrow">→</div>
+    <div class="box">Host PC<br>compare · tip memory · voice</div><div class="arrow">→</div>
+    <div class="box">Hint · story card<br>staff log</div>
+  </div>
+  <p class="big serif">Older adults are not only people who receive help.<br>They can also be people with knowledge, who teach others.</p>
+  <p class="foot">My Turn to Teach · Stage I prototype video · hand input simulated; all logic as submitted on GitHub</p>
+</div>
+</body></html>

@@ -1,0 +1,13 @@
+[
+  {"id": "s0_title",   "text": "My Turn to Teach. A craft companion for elder care, built for the ASUS UGen 300."},
+  {"id": "s1_problem", "text": "Taiwan became a super-aged society at the end of 2025. Most long-term care institutions say they are chronically understaffed. In a group craft session, one care worker cannot watch every pair of hands. And elders spend the whole day receiving help. We asked a different question: what if they could also teach?"},
+  {"id": "s2_proto",   "text": "This is our Stage One prototype, running on an ordinary laptop. Hand tracking uses the same model family that Hailo ships for the Hailo 10 H. The hands in this video are simulated landmark input, so the pipeline can be shown reproducibly. Nothing is recorded or uploaded."},
+  {"id": "s2_record",  "text": "First, the instructor records a demonstration. One pose per step, held for a short countdown. That is the only training the system needs."},
+  {"id": "s3_session", "text": "Now a learner, Mrs Lin, starts a session. The system compares her hands with the recording. Geometry decides whether the step is right. When the pose drifts for more than a second and a half, it speaks one short hint."},
+  {"id": "s4_done",    "text": "When the step is done, the roles flip. The AI becomes the apprentice, and asks for her own tip."},
+  {"id": "s4_keep",    "text": "The tip is read back, confirmed, and saved. The language model is not retrained. The system's memory is."},
+  {"id": "s5_story",   "text": "At the end of the session, a story card: the finished piece, the tips she taught, and her own voice, for the family."},
+  {"id": "s6_recall",  "text": "A week later, the same learner sits down again. The apprentice remembers what it was taught, and offers it back."},
+  {"id": "s7_eval",    "text": "A built-in check asks for steps done correctly, or wrongly on purpose, and scores its own judgement. These numbers go into the proposal, and will be measured again on the device."},
+  {"id": "s8_outro",   "text": "In Stage Two, every model moves onto the ASUS UGen 300: hand landmarks, Whisper for speech, and a small language model, all offline, at two and a half watts. Older adults are not only people who receive help. They can also be people with knowledge, who teach others. Give every elder an apprentice."}
+]
